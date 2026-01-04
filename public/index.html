@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBA Admin - Sistema de Atendimento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="login-screen" class="screen">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo">
+                    <!-- SUA LOGO AQUI - Opção 1: Como imagem -->
+                    <img src="img/logo.png" alt="Logo PENTAGONO" class="main-logo">
+                    <h1>CBA Admin</h1>
+                </div>
+                <p class="subtitle">Sistema de Gestão de Atendimento</p>
+            </div>
+            
+            <div class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="login-email" placeholder="E-mail" value="admin@cba.com">
+                </div>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-senha" placeholder="Senha" value="123456">
+                </div>
+                
+                <button id="btn-login" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar no Sistema
+                </button>
+                
+                <div class="login-footer">
+                    <p><i class="fas fa-building"></i> Empresa 1</p>
+                    <p><i class="fas fa-calendar-check"></i> Licença até 14/09/2025</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema Principal (inicialmente oculto) -->
+<div id="app" class="screen hidden">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <!-- Logo na sidebar -->
+            <div class="sidebar-logo">
+                <img src="logo.png" alt="Logo PETRADO" class="sidebar-logo-img">
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">A</div>
+                <div>
+                    <h3 id="user-name">Administrador</h3>
+                    <p id="user-email">admin@cba.com</p>
+                </div>
+            </div>
+            <div class="license-info">
+                <p><i class="fas fa-shield-alt"></i> Empresa 1</p>
+                <p><i class="fas fa-calendar"></i> Até 14/09/2025</p>
+            </div>
+        </div>
+            
+        <!-- Menu -->
+        <div class="menu">
+            <div class="menu-section">
+                <h4><i class="fas fa-headset"></i> ATENDIMENTO</h4>
+                <ul>
+                    <li class="active" data-section="atendimento">
+                        <i class="fas fa-comments"></i> Atendimentos
+                        <span class="badge" id="badge-atendimentos">3</span>
+                    </li>
+                    <li data-section="contatos">
+                        <i class="fas fa-users"></i> Contatos
+                        <span class="badge" id="badge-contatos">5</span>
+                    </li>
+                    <li data-section="kanban">
+                        <i class="fas fa-columns"></i> Kanban
+                    </li>
+                    <li data-section="agendamentos">
+                        <i class="fas fa-calendar-alt"></i> Agendamentos
+                    </li>
+                    <li data-section="tags">
+                        <i class="fas fa-tags"></i> Tags
+                    </li>
+                    <li data-section="chat-interno">
+                        <i class="fas fa-comment-dots"></i> Chat Interno
+                    </li>
+                    <li data-section="ajuda">
+                        <i class="fas fa-question-circle"></i> Ajuda
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="menu-section">
+                <h4><i class="fas fa-chart-line"></i> GERÊNCIA</h4>
+                <ul>
+                    <li data-section="dashboard">
+                        <i class="fas fa-chart-bar"></i> Dashboard
+                    </li>
+                    <li data-section="relatorios">
+                        <i class="fas fa-chart-pie"></i> Relatórios
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="menu-section">
+                <h4><i class="fas fa-bullhorn"></i> CAMPANHAS</h4>
+                <ul>
+                    <li>
+                        <i class="fas fa-list"></i> Listagem
+                    </li>
+                    <li>
+                        <i class="fas fa-address-book"></i> Listas de Contatos
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- ADMINISTRAÇÃO -->
+            <div class="menu-section">
+                <h4><i class="fas fa-cogs"></i> ADMINISTRAÇÃO</h4>
+                <ul>
+                    <li data-section="informativos">
+                        <i class="fas fa-newspaper"></i> Informativos
+                    </li>
+                    <li data-section="openai">
+                        <i class="fas fa-robot"></i> Open.AI
+                    </li>
+                    <li data-section="conexoes">
+                        <i class="fas fa-plug"></i> Conexões
+                    </li>
+                    <li data-section="arquivos">
+                        <i class="fas fa-folder"></i> Lista de Arquivos
+                    </li>
+                    <li data-section="usuarios">
+                        <i class="fas fa-user-cog"></i> Usuários
+                    </li>
+                    <li data-section="api">
+                        <i class="fas fa-code"></i> API
+                    </li>
+                    <li data-section="financeiro">
+                        <i class="fas fa-dollar-sign"></i> Financeiro
+                    </li>
+                    <li data-section="configuracoes">
+                        <i class="fas fa-sliders-h"></i> Configurações
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- SISTEMA -->
+            <div class="menu-section">
+                <h4><i class="fas fa-desktop"></i> SISTEMA</h4>
+                <ul>
+                    <li data-section="atualizacoes">
+                        <i class="fas fa-sync-alt"></i> Atualizações
+                    </li>
+                </ul>
+            </div>
+        </div>
+            
+        <button id="btn-logout" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+    </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Atendimentos</h2>
+                    <p id="page-subtitle">Gerencie conversas com clientes</p>
+                </div>
+                
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button id="theme-toggle" class="btn-theme">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                    </div>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="time-display">
+                        <i class="fas fa-clock"></i>
+                        <span id="current-time">00:00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conteúdo Dinâmico -->
+            <div class="content">
+                <!-- Seção ATENDIMENTO -->
+                <div id="atendimento-section" class="content-section">
+                    <div class="chat-container">
+                        <!-- Lista de Contatos -->
+                        <div class="contacts-panel">
+                            <div class="panel-header">
+                                <h3>Atendimentos</h3>
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="search-contatos" placeholder="Buscar contato...">
+                                </div>
+                            </div>
+                            
+                            <div class="status-tabs">
+                                <button class="status-tab active" data-status="todos">Todos</button>
+                                <button class="status-tab" data-status="atendendo">
+                                    <span class="dot red"></span> Atendendo
+                                </button>
+                                <button class="status-tab" data-status="aguardando">
+                                    <span class="dot yellow"></span> Aguardando
+                                </button>
+                                <button class="status-tab" data-status="finalizado">
+                                    <span class="dot green"></span> Finalizado
+                                </button>
+                            </div>
+                            
+                            <div class="contacts-list" id="contacts-list">
+                                <!-- Contatos carregados via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Área do Chat -->
+                        <div class="chat-panel">
+                            <!-- Header do Chat -->
+                            <div class="chat-header" id="chat-header">
+                                <div class="chat-contact-info">
+                                    <div class="contact-avatar" id="chat-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <h3 id="chat-contact-name">Selecione um contato</h3>
+                                        <p id="chat-contact-status">Clique em um contato para conversar</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="chat-actions">
+                                    <button class="chat-action-btn" title="Ligar">
+                                        <i class="fas fa-phone"></i>
+                                    </button>
+                                    <button class="chat-action-btn" title="Informações">
+                                        <i class="fas fa-info-circle"></i>
+                                    </button>
+                                    <button class="chat-action-btn" title="Finalizar">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Mensagens -->
+                            <div class="messages-container" id="messages-container">
+                                <div class="empty-chat">
+                                    <i class="fas fa-comment-slash"></i>
+                                    <p>Selecione um contato para ver as mensagens</p>
+                                </div>
+                            </div>
+
+                            <!-- Input de Mensagem -->
+                            <div class="message-input-container">
+                                <div class="input-tools">
+                                    <button class="input-tool-btn">
+                                        <i class="fas fa-smile"></i>
+                                    </button>
+                                    <button class="input-tool-btn">
+                                        <i class="fas fa-paperclip"></i>
+                                    </button>
+                                    <button class="input-tool-btn">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                </div>
+                                
+                                <textarea 
+                                    id="message-input" 
+                                    placeholder="Digite sua mensagem..." 
+                                    rows="1"
+                                    disabled
+                                ></textarea>
+                                
+                                <button id="send-button" class="send-btn" disabled>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção CONTATOS -->
+                <div id="contatos-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Contatos</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-novo-contato">
+                                <i class="fas fa-plus"></i> Novo Contato
+                            </button>
+                            <button class="btn-secondary" id="btn-importar-contatos">
+                                <i class="fas fa-file-import"></i> Importar
+                            </button>
+                            <button class="btn-secondary" id="btn-exportar-contatos">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="filters-bar">
+                        <div class="search-container">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="contato-search" placeholder="Buscar por nome, telefone ou email...">
+                        </div>
+                        
+                        <div class="filter-options">
+                            <select id="filter-status">
+                                <option value="todos">Todos os status</option>
+                                <option value="atendendo">Atendendo</option>
+                                <option value="aguardando">Aguardando</option>
+                                <option value="finalizado">Finalizado</option>
+                            </select>
+                            
+                            <select id="filter-tags">
+                                <option value="todos">Todas as tags</option>
+                                <option value="novo">Novo</option>
+                                <option value="vip">VIP</option>
+                                <option value="suporte">Suporte</option>
+                                <option value="tecnico">Técnico</option>
+                            </select>
+                            
+                            <button class="btn-filter">
+                                <i class="fas fa-filter"></i> Filtrar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="contatos-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>WhatsApp</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Última Interação</th>
+                                    <th>Tags</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contatos-table-body">
+                                <!-- Dados carregados via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Seção DASHBOARD -->
+                <div id="dashboard-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-bar"></i> Dashboard</h2>
+                        <div class="time-range">
+                            <select id="dashboard-period">
+                                <option value="hoje">Hoje</option>
+                                <option value="semana">Esta Semana</option>
+                                <option value="mes" selected>Este Mês</option>
+                                <option value="ano">Este Ano</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card red">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="stat-total-contatos">0</h3>
+                                <p>Total de Contatos</p>
+                            </div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 12%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card green">
+                            <div class="stat-icon">
+                                <i class="fas fa-comment-dots"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="stat-contatos-ativos">0</h3>
+                                <p>Atendimentos Ativos</p>
+                            </div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 8%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card blue">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="stat-atendimentos-hoje">0</h3>
+                                <p>Atendimentos Hoje</p>
+                            </div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 5%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card purple">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="stat-taxa-resolucao">0%</h3>
+                                <p>Taxa de Resolução</p>
+                            </div>
+                            <div class="stat-trend up">
+                                <i class="fas fa-arrow-up"></i> 3%
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-charts">
+                        <div class="chart-container">
+                            <h3>Atendimentos por Status</h3>
+                            <div class="chart-placeholder" id="chart-status">
+                                <div class="chart-bars">
+                                    <div class="chart-bar red" style="height: 70%">
+                                        <span>Atendendo</span>
+                                    </div>
+                                    <div class="chart-bar yellow" style="height: 50%">
+                                        <span>Aguardando</span>
+                                    </div>
+                                    <div class="chart-bar green" style="height: 30%">
+                                        <span>Finalizado</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <h3>Contatos por Tag</h3>
+                            <div class="chart-placeholder" id="chart-tags">
+                                <div class="tags-list">
+                                    <div class="tag-item">
+                                        <span class="tag-dot red"></span>
+                                        <span>Novo</span>
+                                        <span class="tag-count">3</span>
+                                    </div>
+                                    <div class="tag-item">
+                                        <span class="tag-dot blue"></span>
+                                        <span>Suporte</span>
+                                        <span class="tag-count">2</span>
+                                    </div>
+                                    <div class="tag-item">
+                                        <span class="tag-dot green"></span>
+                                        <span>VIP</span>
+                                        <span class="tag-count">1</span>
+                                    </div>
+                                    <div class="tag-item">
+                                        <span class="tag-dot purple"></span>
+                                        <span>Técnico</span>
+                                        <span class="tag-count">1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>Atividade Recente</h3>
+                        <div class="activity-list" id="activity-list">
+                            <!-- Atividades carregadas via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção KANBAN -->
+                <div id="kanban-section" class="content-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-columns"></i> Kanban</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-novo-card">
+                                <i class="fas fa-plus"></i> Novo Card
+                            </button>
+                            <button class="btn-secondary" id="btn-nova-coluna">
+                                <i class="fas fa-columns"></i> Nova Coluna
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="kanban-container" id="kanban-board">
+                        <!-- Coluna: Aguardando -->
+                        <div class="kanban-column column-aguardando">
+                            <div class="kanban-column-header">
+                                <div class="kanban-column-title">
+                                    <i class="fas fa-clock"></i> Aguardando
+                                    <span class="kanban-column-count">2</span>
+                                </div>
+                                <div class="kanban-column-actions">
+                                    <button class="kanban-column-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                </div>
+                            </div>
+                            <div class="kanban-cards-container">
+                                <div class="kanban-cards-list">
+                                    <!-- Card 1 -->
+                                    <div class="kanban-card" draggable="true">
+                                        <div class="kanban-card-header">
+                                            <div class="kanban-card-title">Revisar novos contatos</div>
+                                            <span class="kanban-card-status status-aguardando">Aguardando</span>
+                                        </div>
+                                        <div class="kanban-card-content">
+                                            <p class="kanban-card-description">Verificar novos clientes cadastrados e confirmar dados.</p>
+                                            <div class="kanban-card-tags">
+                                                <span class="kanban-card-tag tag-medium-priority">Média</span>
+                                                <span class="kanban-card-tag tag-feature">ATENDIMENTO</span>
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-footer">
+                                            <div class="kanban-card-date">
+                                                <i class="fas fa-calendar"></i>
+                                                18/09
+                                            </div>
+                                            <div class="kanban-card-assignee">
+                                                <div class="kanban-card-avatar">J</div>
+                                                João
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-actions">
+                                            <button class="kanban-card-action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="kanban-card-action-btn"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 2 -->
+                                    <div class="kanban-card" draggable="true">
+                                        <div class="kanban-card-header">
+                                            <div class="kanban-card-title">Aprovar orçamentos</div>
+                                            <span class="kanban-card-status status-aguardando">Aguardando</span>
+                                        </div>
+                                        <div class="kanban-card-content">
+                                            <p class="kanban-card-description">Aprovar 3 orçamentos pendentes da equipe comercial.</p>
+                                            <div class="kanban-card-tags">
+                                                <span class="kanban-card-tag tag-high-priority">Alta</span>
+                                                <span class="kanban-card-tag tag-feature">FINANCEIRO</span>
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-footer">
+                                            <div class="kanban-card-date">
+                                                <i class="fas fa-calendar"></i>
+                                                20/09
+                                            </div>
+                                            <div class="kanban-card-assignee">
+                                                <div class="kanban-card-avatar">M</div>
+                                                Maria
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-actions">
+                                            <button class="kanban-card-action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="kanban-card-action-btn"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="kanban-add-card-btn" data-column="aguardando">
+                                    <i class="fas fa-plus"></i>
+                                    Adicionar Card
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Coluna: Em Andamento -->
+                        <div class="kanban-column column-em-andamento">
+                            <div class="kanban-column-header">
+                                <div class="kanban-column-title">
+                                    <i class="fas fa-play-circle"></i> Em Andamento
+                                    <span class="kanban-column-count">2</span>
+                                </div>
+                                <div class="kanban-column-actions">
+                                    <button class="kanban-column-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                </div>
+                            </div>
+                            <div class="kanban-cards-container">
+                                <div class="kanban-cards-list">
+                                    <!-- Card 1 -->
+                                    <div class="kanban-card" draggable="true">
+                                        <div class="kanban-card-header">
+                                            <div class="kanban-card-title">Atendimento cliente VIP</div>
+                                            <span class="kanban-card-status status-em-andamento">Em Andamento</span>
+                                        </div>
+                                        <div class="kanban-card-content">
+                                            <p class="kanban-card-description">Suporte especializado para cliente VIP com urgência.</p>
+                                            <div class="kanban-card-tags">
+                                                <span class="kanban-card-tag tag-high-priority">Alta</span>
+                                                <span class="kanban-card-tag tag-feature">ATENDIMENTO</span>
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-footer">
+                                            <div class="kanban-card-date">
+                                                <i class="fas fa-calendar"></i>
+                                                15/09
+                                            </div>
+                                            <div class="kanban-card-assignee">
+                                                <div class="kanban-card-avatar">M</div>
+                                                Maria
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-actions">
+                                            <button class="kanban-card-action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="kanban-card-action-btn"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card 2 -->
+                                    <div class="kanban-card due-soon" draggable="true">
+                                        <div class="kanban-card-header">
+                                            <div class="kanban-card-title">Corrigir bug crítico</div>
+                                            <span class="kanban-card-status status-em-andamento">Em Andamento</span>
+                                        </div>
+                                        <div class="kanban-card-content">
+                                            <p class="kanban-card-description">Problema no sistema de mensagens que impede envios.</p>
+                                            <div class="kanban-card-tags">
+                                                <span class="kanban-card-tag tag-high-priority">Alta</span>
+                                                <span class="kanban-card-tag tag-bug">BUG</span>
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-footer">
+                                            <div class="kanban-card-date">
+                                                <i class="fas fa-calendar"></i>
+                                                20/09
+                                            </div>
+                                            <div class="kanban-card-assignee">
+                                                <div class="kanban-card-avatar">C</div>
+                                                Carlos
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-actions">
+                                            <button class="kanban-card-action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="kanban-card-action-btn"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="kanban-add-card-btn" data-column="em-andamento">
+                                    <i class="fas fa-plus"></i>
+                                    Adicionar Card
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Coluna: Revisão -->
+                        <div class="kanban-column column-revisao">
+                            <div class="kanban-column-header">
+                                <div class="kanban-column-title">
+                                    <i class="fas fa-search"></i> Revisão
+                                    <span class="kanban-column-count">1</span>
+                                </div>
+                                <div class="kanban-column-actions">
+                                    <button class="kanban-column-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                </div>
+                            </div>
+                            <div class="kanban-cards-container">
+                                <div class="kanban-cards-list">
+                                    <!-- Card 1 -->
+                                    <div class="kanban-card" draggable="true">
+                                        <div class="kanban-card-header">
+                                            <div class="kanban-card-title">Testar nova funcionalidade</div>
+                                            <span class="kanban-card-status status-revisao">Revisão</span>
+                                        </div>
+                                        <div class="kanban-card-content">
+                                            <p class="kanban-card-description">Testar integração com WhatsApp Business API.</p>
+                                            <div class="kanban-card-tags">
+                                                <span class="kanban-card-tag tag-medium-priority">Média</span>
+                                                <span class="kanban-card-tag tag-feature">TESTE</span>
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-footer">
+                                            <div class="kanban-card-date">
+                                                <i class="fas fa-calendar"></i>
+                                                22/09
+                                            </div>
+                                            <div class="kanban-card-assignee">
+                                                <div class="kanban-card-avatar">A</div>
+                                                Ana
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-actions">
+                                            <button class="kanban-card-action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="kanban-card-action-btn"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="kanban-add-card-btn" data-column="revisao">
+                                    <i class="fas fa-plus"></i>
+                                    Adicionar Card
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Coluna: Concluído -->
+                        <div class="kanban-column column-concluido">
+                            <div class="kanban-column-header">
+                                <div class="kanban-column-title">
+                                    <i class="fas fa-check-circle"></i> Concluído
+                                    <span class="kanban-column-count">1</span>
+                                </div>
+                                <div class="kanban-column-actions">
+                                    <button class="kanban-column-btn"><i class="fas fa-ellipsis-v"></i></button>
+                                </div>
+                            </div>
+                            <div class="kanban-cards-container">
+                                <div class="kanban-cards-list">
+                                    <!-- Card 1 -->
+                                    <div class="kanban-card" draggable="true">
+                                        <div class="kanban-card-header">
+                                            <div class="kanban-card-title">Desenvolver nova funcionalidade</div>
+                                            <span class="kanban-card-status status-concluido">Concluído</span>
+                                        </div>
+                                        <div class="kanban-card-content">
+                                            <p class="kanban-card-description">Criar integração com WhatsApp para envio automático.</p>
+                                            <div class="kanban-card-tags">
+                                                <span class="kanban-card-tag tag-low-priority">Baixa</span>
+                                                <span class="kanban-card-tag tag-feature">DESENVOLVIMENTO</span>
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-footer">
+                                            <div class="kanban-card-date">
+                                                <i class="fas fa-calendar"></i>
+                                                10/09
+                                            </div>
+                                            <div class="kanban-card-assignee">
+                                                <div class="kanban-card-avatar">A</div>
+                                                Ana
+                                            </div>
+                                        </div>
+                                        <div class="kanban-card-actions">
+                                            <button class="kanban-card-action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="kanban-card-action-btn"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="kanban-add-card-btn" data-column="concluido">
+                                    <i class="fas fa-plus"></i>
+                                    Adicionar Card
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção AGENDAMENTOS -->
+                <div id="agendamentos-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-calendar-alt"></i> Agendamentos</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-novo-agendamento">
+                                <i class="fas fa-plus"></i> Novo Agendamento
+                            </button>
+                            <button class="btn-secondary" id="btn-calendario">
+                                <i class="fas fa-calendar"></i> Calendário
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="agendamentos-container">
+                        <div class="agendamentos-hoje">
+                            <h3>Hoje <span class="badge" id="agendamentos-hoje-count">0</span></h3>
+                            <div class="agendamentos-list" id="agendamentos-hoje-list"></div>
+                        </div>
+                        
+                        <div class="agendamentos-futuros">
+                            <h3>Próximos <span class="badge" id="agendamentos-futuros-count">0</span></h3>
+                            <div class="agendamentos-list" id="agendamentos-futuros-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção TAGS -->
+                <div id="tags-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tags"></i> Gerenciar Tags</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-nova-tag">
+                                <i class="fas fa-plus"></i> Nova Tag
+                            </button>
+                            <button class="btn-secondary" id="btn-exportar-tags">
+                                <i class="fas fa-download"></i> Exportar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="tags-management">
+                        <div class="tags-stats">
+                            <div class="stat-card small">
+                                <h4>Total de Tags</h4>
+                                <h2 id="total-tags">0</h2>
+                            </div>
+                            <div class="stat-card small">
+                                <h4>Tags Mais Usadas</h4>
+                                <h2 id="tag-mais-usada">-</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="tags-grid" id="tags-container">
+                            <!-- Tags serão geradas via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção CHAT INTERNO -->
+                <div id="chat-interno-section" class="content-section hidden">
+                    <div class="chat-interno-container">
+                        <div class="users-panel">
+                            <div class="panel-header">
+                                <h3>Equipe</h3>
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="search-usuarios" placeholder="Buscar usuário...">
+                                </div>
+                            </div>
+                            <div class="users-list" id="usuarios-list"></div>
+                        </div>
+                        
+                        <div class="chat-panel">
+                            <div class="chat-header">
+                                <h3 id="chat-grupo-nome">Chat Geral</h3>
+                                <div class="chat-actions">
+                                    <button class="chat-action-btn">
+                                        <i class="fas fa-user-plus"></i>
+                                    </button>
+                                    <button class="chat-action-btn">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="messages-container" id="chat-interno-messages"></div>
+                            
+                            <div class="message-input-container">
+                                <textarea id="chat-interno-input" placeholder="Digite uma mensagem..." rows="1"></textarea>
+                                <button id="chat-interno-send" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção AJUDA -->
+                <div id="ajuda-section" class="content-section hidden">
+                    <div class="ajuda-container">
+                        <div class="ajuda-sidebar">
+                            <h3>Central de Ajuda</h3>
+                            <ul class="ajuda-menu">
+                                <li class="active" data-topic="inicio"><i class="fas fa-home"></i> Início</li>
+                                <li data-topic="atendimento"><i class="fas fa-headset"></i> Atendimento</li>
+                                <li data-topic="contatos"><i class="fas fa-users"></i> Contatos</li>
+                                <li data-topic="kanban"><i class="fas fa-columns"></i> Kanban</li>
+                                <li data-topic="agendamentos"><i class="fas fa-calendar-alt"></i> Agendamentos</li>
+                                <li data-topic="tags"><i class="fas fa-tags"></i> Tags</li>
+                                <li data-topic="relatorios"><i class="fas fa-chart-pie"></i> Relatórios</li>
+                                <li data-topic="campanhas"><i class="fas fa-bullhorn"></i> Campanhas</li>
+                                <li data-topic="openai"><i class="fas fa-robot"></i> Open.AI</li>
+                                <li data-topic="contato"><i class="fas fa-envelope"></i> Contato Suporte</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="ajuda-content">
+                            <div id="ajuda-inicio" class="ajuda-topic active">
+                                <h2>Bem-vindo ao CBA Admin!</h2>
+                                <p>Sistema completo de gestão de atendimento com IA integrada.</p>
+                                
+                                <div class="help-cards">
+                                    <div class="help-card">
+                                        <i class="fas fa-video"></i>
+                                        <h4>Tutoriais em Vídeo</h4>
+                                        <p>Assista nossos tutoriais</p>
+                                    </div>
+                                    <div class="help-card">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <h4>Documentação</h4>
+                                        <p>Guia completo do sistema</p>
+                                    </div>
+                                    <div class="help-card">
+                                        <i class="fas fa-headset"></i>
+                                        <h4>Suporte Online</h4>
+                                        <p>Chat com nossa equipe</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="ajuda-atendimento" class="ajuda-topic">
+                                <h2>Atendimento</h2>
+                                <p>Guia completo sobre como usar o sistema de atendimento.</p>
+                            </div>
+                            <div id="ajuda-contatos" class="ajuda-topic">
+                                <h2>Gerenciamento de Contatos</h2>
+                                <p>Como gerenciar sua lista de contatos.</p>
+                            </div>
+                            <div id="ajuda-kanban" class="ajuda-topic">
+                                <h2>Kanban</h2>
+                                <p>Organize suas tarefas com o sistema Kanban.</p>
+                            </div>
+                            <div id="ajuda-agendamentos" class="ajuda-topic">
+                                <h2>Agendamentos</h2>
+                                <p>Gerencie agendamentos e compromissos.</p>
+                            </div>
+                            <div id="ajuda-tags" class="ajuda-topic">
+                                <h2>Tags</h2>
+                                <p>Como usar tags para organizar seus contatos.</p>
+                            </div>
+                            <div id="ajuda-relatorios" class="ajuda-topic">
+                                <h2>Relatórios</h2>
+                                <p>Analise dados e métricas do seu negócio.</p>
+                            </div>
+                            <div id="ajuda-campanhas" class="ajuda-topic">
+                                <h2>Campanhas</h2>
+                                <p>Crie e gerencie campanhas de marketing.</p>
+                            </div>
+                            <div id="ajuda-openai" class="ajuda-topic">
+                                <h2>Open.AI</h2>
+                                <p>Configure e use inteligência artificial.</p>
+                            </div>
+                            <div id="ajuda-contato" class="ajuda-topic">
+                                <h2>Contato Suporte</h2>
+                                <p>Entre em contato com nossa equipe de suporte.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção RELATÓRIOS -->
+                <div id="relatorios-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-pie"></i> Relatórios</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-gerar-relatorio">
+                                <i class="fas fa-file-export"></i> Gerar Relatório
+                            </button>
+                            <select id="relatorio-periodo">
+                                <option value="hoje">Hoje</option>
+                                <option value="semana">Esta Semana</option>
+                                <option value="mes" selected>Este Mês</option>
+                                <option value="trimestre">Este Trimestre</option>
+                                <option value="ano">Este Ano</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="relatorios-container">
+                        <div class="relatorios-sidebar">
+                            <h4>Tipo de Relatório</h4>
+                            <ul class="relatorios-menu">
+                                <li class="active" data-relatorio="atendimento">Atendimento</li>
+                                <li data-relatorio="desempenho">Desempenho</li>
+                                <li data-relatorio="contatos">Contatos</li>
+                                <li data-relatorio="mensagens">Mensagens</li>
+                                <li data-relatorio="campanhas">Campanhas</li>
+                                <li data-relatorio="financeiro">Financeiro</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="relatorios-content" id="relatorios-content">
+                            <div class="relatorio-section active" id="relatorio-atendimento">
+                                <h3>Relatório de Atendimento</h3>
+                                <div class="relatorio-chart">
+                                    Gráfico de atendimentos por status
+                                </div>
+                                <div class="relatorio-stats">
+                                    <div class="stat-card small">
+                                        <h4>Total Atendimentos</h4>
+                                        <h2>0</h2>
+                                    </div>
+                                    <div class="stat-card small">
+                                        <h4>Taxa Resolução</h4>
+                                        <h2>0%</h2>
+                                    </div>
+                                    <div class="stat-card small">
+                                        <h4>Tempo Médio</h4>
+                                        <h2>0min</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relatorio-section" id="relatorio-desempenho">
+                                <h3>Relatório de Desempenho</h3>
+                                <div class="relatorio-chart">
+                                    Gráfico de desempenho da equipe
+                                </div>
+                            </div>
+                            <div class="relatorio-section" id="relatorio-contatos">
+                                <h3>Relatório de Contatos</h3>
+                                <div class="relatorio-chart">
+                                    Gráfico de contatos por tag
+                                </div>
+                            </div>
+                            <div class="relatorio-section" id="relatorio-mensagens">
+                                <h3>Relatório de Mensagens</h3>
+                                <div class="relatorio-chart">
+                                    Gráfico de volume de mensagens
+                                </div>
+                            </div>
+                            <div class="relatorio-section" id="relatorio-campanhas">
+                                <h3>Relatório de Campanhas</h3>
+                                <div class="relatorio-chart">
+                                    Gráfico de performance de campanhas
+                                </div>
+                            </div>
+                            <div class="relatorio-section" id="relatorio-financeiro">
+                                <h3>Relatório Financeiro</h3>
+                                <div class="relatorio-chart">
+                                    Gráfico de receitas e despesas
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Novas Seções para os novos menus -->
+                
+                <!-- Seção INFORMATIVOS -->
+                <div id="informativos-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-newspaper"></i> Informativos</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-novo-informativo">
+                                <i class="fas fa-plus"></i> Novo Informativo
+                            </button>
+                        </div>
+                    </div>
+                    <div class="informativos-container">
+                        <!-- Conteúdo dos informativos -->
+                    </div>
+                </div>
+
+                <!-- Seção OPEN.AI -->
+                <div id="openai-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-robot"></i> Open.AI</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-config-ai">
+                                <i class="fas fa-cog"></i> Configurar IA
+                            </button>
+                        </div>
+                    </div>
+                    <div class="openai-container">
+                        <!-- Configurações de IA -->
+                    </div>
+                </div>
+
+                <!-- Seção CONEXÕES -->
+                <div id="conexoes-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-plug"></i> Conexões</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-nova-conexao">
+                                <i class="fas fa-plus"></i> Nova Conexão
+                            </button>
+                        </div>
+                    </div>
+                    <div class="conexoes-container">
+                        <!-- Lista de conexões -->
+                    </div>
+                </div>
+
+                <!-- Seção ARQUIVOS -->
+                <div id="arquivos-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-folder"></i> Lista de Arquivos</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-upload-arquivo">
+                                <i class="fas fa-upload"></i> Upload Arquivo
+                            </button>
+                        </div>
+                    </div>
+                    <div class="arquivos-container">
+                        <!-- Gerenciador de arquivos -->
+                    </div>
+                </div>
+
+                <!-- Seção USUÁRIOS -->
+                <div id="usuarios-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-user-cog"></i> Usuários</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-novo-usuario">
+                                <i class="fas fa-plus"></i> Novo Usuário
+                            </button>
+                        </div>
+                    </div>
+                    <div class="usuarios-container">
+                        <!-- Gerenciamento de usuários -->
+                    </div>
+                </div>
+
+                <!-- Seção API -->
+                <div id="api-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-code"></i> API</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-gerar-token">
+                                <i class="fas fa-key"></i> Gerar Token
+                            </button>
+                        </div>
+                    </div>
+                    <div class="api-container">
+                        <!-- Documentação e configurações de API -->
+                    </div>
+                </div>
+
+                <!-- Seção FINANCEIRO -->
+                <div id="financeiro-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-dollar-sign"></i> Financeiro</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-novo-pagamento">
+                                <i class="fas fa-plus"></i> Novo Pagamento
+                            </button>
+                        </div>
+                    </div>
+                    <div class="financeiro-container">
+                        <!-- Gestão financeira -->
+                    </div>
+                </div>
+
+                <!-- Seção CONFIGURAÇÕES -->
+                <div id="configuracoes-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-sliders-h"></i> Configurações</h2>
+                    </div>
+                    <div class="configuracoes-container">
+                        <!-- Configurações do sistema -->
+                    </div>
+                </div>
+
+                <!-- Seção ATUALIZAÇÕES -->
+                <div id="atualizacoes-section" class="content-section hidden">
+                    <div class="section-header">
+                        <h2><i class="fas fa-sync-alt"></i> Atualizações</h2>
+                        <div class="section-actions">
+                            <button class="btn-primary" id="btn-verificar-atualizacao">
+                                <i class="fas fa-sync"></i> Verificar Atualizações
+                            </button>
+                        </div>
+                    </div>
+                    <div class="atualizacoes-container">
+                        <!-- Controle de atualizações -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Importação -->
+    <div id="import-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-import"></i> Importar Contatos</h3>
+                <button class="modal-close" onclick="fecharModalImportacao()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="import-options">
+                    <div class="import-option" onclick="selecionarTipoImportacao('csv')">
+                        <i class="fas fa-file-csv"></i>
+                        <h4>CSV/Excel</h4>
+                        <p>Importe arquivos .csv, .xlsx ou .xls</p>
+                    </div>
+                    <div class="import-option" onclick="selecionarTipoImportacao('whatsapp')">
+                        <i class="fab fa-whatsapp"></i>
+                        <h4>WhatsApp</h4>
+                        <p>Importe contatos do WhatsApp</p>
+                    </div>
+                    <div class="import-option" onclick="selecionarTipoImportacao('manual')">
+                        <i class="fas fa-keyboard"></i>
+                        <h4>Manual</h4>
+                        <p>Digite ou cole os contatos</p>
+                    </div>
+                </div>
+                
+                <div id="csv-import" class="import-section hidden">
+                    <div class="upload-area" id="drop-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h4>Arraste e solte seu arquivo aqui</h4>
+                        <p>ou</p>
+                        <button class="btn-primary" onclick="document.getElementById('file-input').click()">
+                            <i class="fas fa-folder-open"></i> Selecione o arquivo
+                        </button>
+                        <input type="file" id="file-input" accept=".csv,.xlsx,.xls" hidden>
+                        <p class="file-info">Formatos suportados: CSV, Excel</p>
+                    </div>
+                    
+                    <div class="import-preview" id="import-preview">
+                        <!-- Preview dos dados será exibido aqui -->
+                    </div>
+                    
+                    <div class="import-config">
+                        <h4>Configurações de Importação</h4>
+                        <div class="config-grid">
+                            <div class="config-item">
+                                <label>Separador CSV:</label>
+                                <select id="csv-separator">
+                                    <option value=",">Vírgula (,)</option>
+                                    <option value=";">Ponto e vírgula (;)</option>
+                                    <option value="\t">Tabulação</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label>Formato da Data:</label>
+                                <select id="date-format">
+                                    <option value="dd/mm/yyyy">DD/MM/AAAA</option>
+                                    <option value="mm/dd/yyyy">MM/DD/AAAA</option>
+                                    <option value="yyyy-mm-dd">AAAA-MM-DD</option>
+                                </select>
+                            </div>
+                            <div class="config-item">
+                                <label>Coluna com WhatsApp:</label>
+                                <select id="whatsapp-column">
+                                    <option value="auto">Detectar automaticamente</option>
+                                    <option value="0">Coluna 1</option>
+                                    <option value="1">Coluna 2</option>
+                                    <option value="2">Coluna 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="manual-import" class="import-section hidden">
+                    <div class="manual-input">
+                        <textarea id="manual-data" placeholder="Cole os dados aqui no formato:
+Nome;WhatsApp;Email;Tags
+João Silva;11999999999;joao@email.com;VIP,Cliente
+Maria Santos;11888888888;maria@email.com;Novo
+
+ou
+
+Nome, WhatsApp, Email, Tags
+João Silva, 11999999999, joao@email.com, VIP, Cliente
+Maria Santos, 11888888888, maria@email.com, Novo" rows="10"></textarea>
+                        <div class="manual-format">
+                            <p><strong>Formatos suportados:</strong></p>
+                            <ul>
+                                <li>Separado por vírgula: Nome, WhatsApp, Email, Tags</li>
+                                <li>Separado por ponto e vírgula: Nome; WhatsApp; Email; Tags</li>
+                                <li>Separado por tabulação</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="whatsapp-import" class="import-section hidden">
+                    <div class="whatsapp-options">
+                        <div class="option-card">
+                            <i class="fas fa-phone"></i>
+                            <h4>Exportar do WhatsApp</h4>
+                            <p>1. No WhatsApp, vá para Configurações → Conversas → Exportar conversa</p>
+                            <p>2. Selecione "Sem mídia"</p>
+                            <p>3. Envie para seu email ou salve o arquivo</p>
+                            <p>4. Importe o arquivo .txt aqui</p>
+                        </div>
+                        <div class="option-card">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h4>Contatos do Telefone</h4>
+                            <p>1. Exporte sua agenda de contatos como arquivo .vcf</p>
+                            <p>2. Faça upload do arquivo</p>
+                            <p>3. Nós processamos automaticamente</p>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-area">
+                        <i class="fab fa-whatsapp"></i>
+                        <h4>Arraste arquivos do WhatsApp aqui</h4>
+                        <p>ou</p>
+                        <button class="btn-primary" onclick="document.getElementById('whatsapp-file').click()">
+                            <i class="fas fa-file-upload"></i> Selecione arquivos
+                        </button>
+                        <input type="file" id="whatsapp-file" accept=".txt,.vcf" multiple hidden>
+                    </div>
+                </div>
+                
+                <div class="import-progress hidden" id="import-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <p id="progress-text">Processando...</p>
+                    <div class="progress-stats">
+                        <span id="processed-count">0</span> de <span id="total-count">0</span> contatos processados
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="fecharModalImportacao()">Cancelar</button>
+                <button class="btn-primary" id="btn-process-import" onclick="processarImportacao()" disabled>
+                    <i class="fas fa-play"></i> Processar Importação
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Criar Novo Card/Tag/Tarefa -->
+    <div id="create-modal" class="modal hidden">
+        <div class="modal-content medium">
+            <div class="modal-header">
+                <h3 id="modal-title">Novo Card</h3>
+                <button class="modal-close" onclick="fecharModalCriacao()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-container" id="form-container">
+                    <!-- Formulário será preenchido dinamicamente -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="fecharModalCriacao()">Cancelar</button>
+                <button class="btn-primary" id="btn-save-create" onclick="salvarCriacao()">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Exportação -->
+    <div id="export-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-download"></i> Exportar Contatos</h3>
+                <button class="modal-close" onclick="fecharModalExportacao()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-options">
+                    <div class="export-option" onclick="selecionarFormatoExportacao('csv')">
+                        <i class="fas fa-file-csv"></i>
+                        <h4>CSV</h4>
+                        <p>Formato universal para Excel e outros sistemas</p>
+                        <div class="format-details">
+                            <span>Nome, WhatsApp, Email, Status, Tags</span>
+                        </div>
+                    </div>
+                    <div class="export-option" onclick="selecionarFormatoExportacao('excel')">
+                        <i class="fas fa-file-excel"></i>
+                        <h4>Excel</h4>
+                        <p>Arquivo .xlsx com formatação e múltiplas abas</p>
+                        <div class="format-details">
+                            <span>Inclui abas de contatos, histórico e estatísticas</span>
+                        </div>
+                    </div>
+                    <div class="export-option" onclick="selecionarFormatoExportacao('json')">
+                        <i class="fas fa-code"></i>
+                        <h4>JSON</h4>
+                        <p>Para integração com outros sistemas</p>
+                        <div class="format-details">
+                            <span>Formato estruturado com todos os dados</span>
+                        </div>
+                    </div>
+                    <div class="export-option" onclick="selecionarFormatoExportacao('vcf')">
+                        <i class="fas fa-address-book"></i>
+                        <h4>VCF (vCard)</h4>
+                        <p>Para importar em agendas de contatos</p>
+                        <div class="format-details">
+                            <span>Compatível com Google Contacts, iPhone, etc.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="export-settings">
+                    <h4>Opções de Exportação</h4>
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="export-filtered" checked>
+                                Exportar apenas contatos filtrados
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="export-history" checked>
+                                Incluir histórico de mensagens
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="export-tags" checked>
+                                Incluir tags e categorias
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" id="export-metadata" checked>
+                                Incluir metadados (data criação, etc.)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Formato de Data:</label>
+                        <select id="export-date-format">
+                            <option value="dd/mm/yyyy">DD/MM/AAAA</option>
+                            <option value="mm/dd/yyyy">MM/DD/AAAA</option>
+                            <option value="yyyy-mm-dd">AAAA-MM-DD</option>
+                        </select>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <label>Codificação:</label>
+                        <select id="export-encoding">
+                            <option value="utf-8">UTF-8 (Recomendado)</option>
+                            <option value="iso-8859-1">ISO-8859-1 (Windows)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="export-preview" id="export-preview">
+                    <h4>Pré-visualização (primeiras 5 linhas):</h4>
+                    <pre id="preview-content">
+Nome, WhatsApp, Email, Status, Tags
+"João Silva","11999999999","joao@email.com","Atendendo","VIP;Cliente"
+"Maria Santos","11888888888","maria@email.com","Aguardando","Novo"
+                    </pre>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="fecharModalExportacao()">Cancelar</button>
+                <button class="btn-primary" onclick="executarExportacao()">
+                    <i class="fas fa-download"></i> Baixar Arquivo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- Script principal -->
+    <script src="script.js"></script>
+</body>
+</html>

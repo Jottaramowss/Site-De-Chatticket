@@ -1,0 +1,78 @@
+{
+  "name": "CBA Admin - Processar Mensagem IA",
+  "nodes": [
+    {
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [300, 300],
+      "parameters": {
+        "path": "webhook-cba",
+        "responseMode": "responseNode"
+      }
+    },
+    {
+      "name": "Processar Dados",
+      "type": "n8n-nodes-base.function",
+      "position": [500, 300],
+      "parameters": {
+        "jsCode": "// Receber dados do CBA Admin\nconst { contato, mensagem, contexto } = $input.first().json;\n\n// Preparar para IA\nconst prompt = {\n  role: \"user\",\n  content: `Contexto: ${contexto}\\n\\nMensagem do cliente: ${mensagem}`\n};\n\nreturn [{\n  json: {\n    contato,\n    mensagem,\n    prompt\n  }\n}];"
+      }
+    },
+    {
+      "name": "OpenAI Chat",
+      "type": "n8n-nodes-base.openAi",
+      "position": [700, 300],
+      "parameters": {
+        "resource": "chat",
+        "model": "gpt-3.5-turbo",
+        "messages": "={{ $json.prompt }}",
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 500
+        }
+      }
+    },
+    {
+      "name": "Formatar Resposta",
+      "type": "n8n-nodes-base.function",
+      "position": [900, 300],
+      "parameters": {
+        "jsCode": "// Formatar resposta da IA\nconst respostaIA = $input.first().json.message.content;\n\nreturn [{\n  json: {\n    evento: \"resposta_ia\",\n    data: {\n      contatoId: $json.contato.id,\n      resposta: respostaIA\n    }\n  }\n}];"
+      }
+    },
+    {
+      "name": "Enviar para CBA",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [1100, 300],
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5000/api/n8n/webhook",
+        "authentication": "none",
+        "sendBody": true,
+        "jsonBody": "={{ $json }}"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[
+        { "node": "Processar Dados", "type": "main", "index": 0 }
+      ]]
+    },
+    "Processar Dados": {
+      "main": [[
+        { "node": "OpenAI Chat", "type": "main", "index": 0 }
+      ]]
+    },
+    "OpenAI Chat": {
+      "main": [[
+        { "node": "Formatar Resposta", "type": "main", "index": 0 }
+      ]]
+    },
+    "Formatar Resposta": {
+      "main": [[
+        { "node": "Enviar para CBA", "type": "main", "index": 0 }
+      ]]
+    }
+  }
+}
